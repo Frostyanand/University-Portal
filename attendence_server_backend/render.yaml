@@ -9,3 +9,5 @@ services:
     envVars:
       - key: FLASK_ENV
         value: production
+      - key: FIREBASE_CREDS_JSON
+        value: ${FIREBASE_CREDS_JSON}
