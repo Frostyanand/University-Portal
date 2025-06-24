@@ -100,7 +100,7 @@ const AttendanceUploadApp = () => {
 
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('pdf', file);
 
       const progressPromise = simulateUploadProgress();
 
