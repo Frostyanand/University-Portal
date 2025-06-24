@@ -213,67 +213,7 @@ const AttendanceUploadApp = () => {
           </p>
         </div>
 
-        {/* Backend Status Card */}
-        <div className="flex justify-center mb-8">
-          <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-300 via-blue-300 to-purple-300 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
-            
-            <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="flex flex-col items-center space-y-4">
-                <button
-                  onClick={pingBackend}
-                  disabled={isPinging}
-                  className={`group/btn relative px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 transform ${
-                    isPinging
-                      ? 'bg-gradient-to-r from-slate-200 to-slate-300 text-slate-500 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-emerald-500 to-blue-500 text-white hover:from-emerald-600 hover:to-blue-600 hover:scale-105 hover:shadow-lg active:scale-95'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RefreshCw className={`h-4 w-4 ${isPinging ? 'animate-spin' : 'group-hover/btn:rotate-180'} transition-transform duration-500`} />
-                    <span>Restart Backend Server</span>
-                  </div>
-                  
-                  {!isPinging && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-blue-400 rounded-xl blur opacity-0 group-hover/btn:opacity-30 transition-opacity duration-300" />
-                  )}
-                </button>
-
-                <div className="flex items-center space-x-2 animate-fadeIn">
-                  {isPinging ? (
-                    <>
-                      <div className="relative">
-                        <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse" />
-                        <div className="absolute inset-0 w-4 h-4 bg-blue-400 rounded-full animate-ping opacity-30" />
-                      </div>
-                      <span className="text-slate-600 font-medium text-sm">Loading backend server...</span>
-                    </>
-                  ) : isBackendReady ? (
-                    <>
-                      <div className="relative">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        <div className="absolute -inset-1 bg-emerald-400/20 rounded-full animate-pulse" />
-                      </div>
-                      <span className="text-emerald-600 font-medium text-sm">Backend is ready!</span>
-                    </>
-                  ) : (
-                    <>
-                      <div className="relative">
-                        <AlertCircle className="h-4 w-4 text-amber-500 animate-pulse" />
-                        <div className="absolute -inset-1 bg-amber-400/20 rounded-full animate-pulse" />
-                      </div>
-                      <span className="text-amber-600 font-medium text-sm">Backend unavailable</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-
+    
         {/* Upload Card */}
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-300 via-purple-300 to-indigo-300 rounded-3xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
@@ -476,6 +416,65 @@ const AttendanceUploadApp = () => {
                     ✨ Upload Another
                   </button>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Backend Status Card */}
+        <div className="flex justify-center mb-8">
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-300 via-blue-300 to-purple-300 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
+            
+            <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="flex flex-col items-center space-y-4">
+                <button
+                  onClick={pingBackend}
+                  disabled={isPinging}
+                  className={`group/btn relative px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 transform ${
+                    isPinging
+                      ? 'bg-gradient-to-r from-slate-200 to-slate-300 text-slate-500 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-emerald-500 to-blue-500 text-white hover:from-emerald-600 hover:to-blue-600 hover:scale-105 hover:shadow-lg active:scale-95'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RefreshCw className={`h-4 w-4 ${isPinging ? 'animate-spin' : 'group-hover/btn:rotate-180'} transition-transform duration-500`} />
+                    <span>Restart Backend Server</span>
+                  </div>
+                  
+                  {!isPinging && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-blue-400 rounded-xl blur opacity-0 group-hover/btn:opacity-30 transition-opacity duration-300" />
+                  )}
+                </button>
+
+                <div className="flex items-center space-x-2 animate-fadeIn">
+                  {isPinging ? (
+                    <>
+                      <div className="relative">
+                        <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse" />
+                        <div className="absolute inset-0 w-4 h-4 bg-blue-400 rounded-full animate-ping opacity-30" />
+                      </div>
+                      <span className="text-slate-600 font-medium text-sm">Loading backend server...</span>
+                    </>
+                  ) : isBackendReady ? (
+                    <>
+                      <div className="relative">
+                        <CheckCircle className="h-4 w-4 text-emerald-500" />
+                        <div className="absolute -inset-1 bg-emerald-400/20 rounded-full animate-pulse" />
+                      </div>
+                      <span className="text-emerald-600 font-medium text-sm">Backend is ready!</span>
+                    </>
+                  ) : (
+                    <>
+                      <div className="relative">
+                        <AlertCircle className="h-4 w-4 text-amber-500 animate-pulse" />
+                        <div className="absolute -inset-1 bg-amber-400/20 rounded-full animate-pulse" />
+                      </div>
+                      <span className="text-amber-600 font-medium text-sm">Backend unavailable</span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
