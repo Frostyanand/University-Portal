@@ -423,12 +423,20 @@ const AttendanceUploadApp = () => {
 
 
         {/* Backend Status Card */}
-        <div className="flex justify-center mb-8">
-          <div className="relative group">
+        <div className="mt-16 flex justify-center">
+          <div className="relative group max-w-sm">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-300 via-blue-300 to-purple-300 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
             
             <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <div className="flex flex-col items-center space-y-4">
+                {/* Server Icon Header */}
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">Server Status</span>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                </div>
+
+                {/* Restart Button */}
                 <button
                   onClick={pingBackend}
                   disabled={isPinging}
@@ -440,7 +448,7 @@ const AttendanceUploadApp = () => {
                 >
                   <div className="flex items-center space-x-2">
                     <RefreshCw className={`h-4 w-4 ${isPinging ? 'animate-spin' : 'group-hover/btn:rotate-180'} transition-transform duration-500`} />
-                    <span>Restart Backend Server</span>
+                    <span>Wake Up Server</span>
                   </div>
                   
                   {!isPinging && (
@@ -448,30 +456,31 @@ const AttendanceUploadApp = () => {
                   )}
                 </button>
 
+                {/* Status Indicator */}
                 <div className="flex items-center space-x-2 animate-fadeIn">
                   {isPinging ? (
                     <>
                       <div className="relative">
-                        <div className="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse" />
-                        <div className="absolute inset-0 w-4 h-4 bg-blue-400 rounded-full animate-ping opacity-30" />
+                        <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-pulse" />
+                        <div className="absolute inset-0 w-3 h-3 bg-blue-400 rounded-full animate-ping opacity-30" />
                       </div>
-                      <span className="text-slate-600 font-medium text-sm">Loading backend server...</span>
+                      <span className="text-slate-600 font-medium text-xs">Pinging server...</span>
                     </>
                   ) : isBackendReady ? (
                     <>
                       <div className="relative">
-                        <CheckCircle className="h-4 w-4 text-emerald-500" />
-                        <div className="absolute -inset-1 bg-emerald-400/20 rounded-full animate-pulse" />
+                        <CheckCircle className="h-3 w-3 text-emerald-500" />
+                        <div className="absolute -inset-0.5 bg-emerald-400/20 rounded-full animate-pulse" />
                       </div>
-                      <span className="text-emerald-600 font-medium text-sm">Backend is ready!</span>
+                      <span className="text-emerald-600 font-medium text-xs">Server ready ✨</span>
                     </>
                   ) : (
                     <>
                       <div className="relative">
-                        <AlertCircle className="h-4 w-4 text-amber-500 animate-pulse" />
-                        <div className="absolute -inset-1 bg-amber-400/20 rounded-full animate-pulse" />
+                        <AlertCircle className="h-3 w-3 text-amber-500 animate-pulse" />
+                        <div className="absolute -inset-0.5 bg-amber-400/20 rounded-full animate-pulse" />
                       </div>
-                      <span className="text-amber-600 font-medium text-sm">Backend unavailable</span>
+                      <span className="text-amber-600 font-medium text-xs">Server sleeping 💤</span>
                     </>
                   )}
                 </div>
