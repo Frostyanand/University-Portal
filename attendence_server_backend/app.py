@@ -27,6 +27,10 @@ except ValueError:
 
 db = firestore.client()
 
+@app.route("/", methods=["GET", "HEAD"])
+def root():
+    return "✅ University Portal backend is live!"
+
 @app.route('/extract-attendance', methods=['POST'])
 def extract_attendance():
     if 'pdf' not in request.files:
