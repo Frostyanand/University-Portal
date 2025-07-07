@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, CheckCircle, FileText, AlertCircle, ArrowLeft, Home, Sparkles, Zap, Star, RefreshCw } from 'lucide-react';
+const DEPLOY_HOOK_URL = process.env.NEXT_PUBLIC_RENDER_DEPLOY_HOOK_URL;
 
 const AttendanceUploadApp = () => {
   const [file, setFile] = useState(null);
@@ -23,7 +24,19 @@ const AttendanceUploadApp = () => {
       const response = await fetch('https://university-portal-b2v8.onrender.com', { method: 'HEAD' });
       setIsBackendReady(response.ok);
     } catch (error) {
-      console.warn("⚠️ Backend might be sleeping, please wait...");
+      console.warn("⚠️ Backend might be sleeping, triggering wake-up...");
+
+      if (DEPLOY_HOOK_URL) {
+        try {
+          await fetch(DEPLOY_HOOK_URL, { method: 'POST' });
+          console.log("🚀 Deploy hook triggered to wake the server");
+        } catch (wakeErr) {
+          console.error("❌ Failed to trigger deploy hook:", wakeErr);
+        }
+      } else {
+        console.warn("❗ No deploy hook URL found in env vars.");
+      }
+
       setIsBackendReady(false);
     } finally {
       setIsPinging(false);

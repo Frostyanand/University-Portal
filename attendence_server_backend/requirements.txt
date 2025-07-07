@@ -4,3 +4,4 @@ werkzeug
 firebase-admin
 pandas
 PyMuPDF
+gunicorn

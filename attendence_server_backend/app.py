@@ -129,6 +129,8 @@ def extract_attendance():
 def download_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Render provides the correct PORT
-    app.run(debug=True, host='0.0.0.0', port=port)
+
+#To use in Dev environment (Not Prod Grade)
+# if __name__ == '__main__':
+#     port = int(os.environ.get('PORT', 5000))  # Render provides the correct PORT
+#     app.run(debug=True, host='0.0.0.0', port=port)
