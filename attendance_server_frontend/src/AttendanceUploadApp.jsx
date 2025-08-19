@@ -10,6 +10,7 @@ const AttendanceUploadApp = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [attendanceUploadTimestamp, setAttendanceUploadTimestamp] = useState(null); // NEW STATE
   const fileInputRef = useRef(null);
   const uploadAreaRef = useRef(null);
 
@@ -24,7 +25,7 @@ const AttendanceUploadApp = () => {
       const response = await fetch('https://university-portal-b2v8.onrender.com', { method: 'HEAD' });
       setIsBackendReady(response.ok);
     } catch (error) {
-      console.warn("⚠️ Backend might be sleeping, triggering wake-up...");
+      console.warn("⚠ Backend might be sleeping, triggering wake-up...");
 
       if (DEPLOY_HOOK_URL) {
         try {
@@ -126,6 +127,7 @@ const AttendanceUploadApp = () => {
 
       if (response.ok) {
         setUploadStatus('success');
+        setAttendanceUploadTimestamp(new Date().toISOString()); // SET TIMESTAMP ON SUCCESS
         console.log('Upload successful:', await response.json());
       } else {
         throw new Error('Upload failed');
@@ -143,6 +145,7 @@ const AttendanceUploadApp = () => {
     setUploadProgress(0);
     setUploadStatus('idle');
     setIsUploading(false);
+    setAttendanceUploadTimestamp(null); // RESET TIMESTAMP
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -155,14 +158,14 @@ const AttendanceUploadApp = () => {
         <div 
           className="absolute w-96 h-96 bg-gradient-to-r from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"
           style={{
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+            transform: translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px),
             transition: 'transform 0.6s ease-out'
           }}
         />
         <div 
           className="absolute top-1/3 right-0 w-80 h-80 bg-gradient-to-l from-indigo-100/40 to-cyan-100/40 rounded-full blur-3xl"
           style={{
-            transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px)`,
+            transform: translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px),
             transition: 'transform 0.8s ease-out'
           }}
         />
@@ -345,7 +348,7 @@ const AttendanceUploadApp = () => {
                   <div className="relative w-full bg-slate-200 rounded-full h-4 overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-full transition-all duration-300 ease-out relative"
-                      style={{ width: `${uploadProgress}%` }}
+                      style={{ width: ${uploadProgress}% }}
                     >
                       <div className="absolute inset-0 bg-white/30 animate-pulse" />
                     </div>
@@ -353,7 +356,7 @@ const AttendanceUploadApp = () => {
                 </div>
               )}
 
-              {/* Success State */}
+              {/* Success State - MODIFIED WITH TIMESTAMP */}
               {uploadStatus === 'success' && (
                 <div className="mt-10 p-8 bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-3xl animate-fadeIn">
                   <div className="flex flex-col items-center space-y-4">
@@ -368,6 +371,13 @@ const AttendanceUploadApp = () => {
                       <p className="text-emerald-600 text-lg">
                         Your attendance data is being processed with care
                       </p>
+                      {/* TIMESTAMP DISPLAY */}
+                      {attendanceUploadTimestamp && (
+                        <p className="text-slate-500 text-sm mt-3 flex items-center justify-center space-x-1">
+                          <span>📅</span>
+                          <span>Uploaded: {new Date(attendanceUploadTimestamp).toLocaleString()}</span>
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -460,7 +470,7 @@ const AttendanceUploadApp = () => {
                   }`}
                 >
                   <div className="flex items-center space-x-2">
-                    <RefreshCw className={`h-4 w-4 ${isPinging ? 'animate-spin' : 'group-hover/btn:rotate-180'} transition-transform duration-500`} />
+                    <RefreshCw className={h-4 w-4 ${isPinging ? 'animate-spin' : 'group-hover/btn:rotate-180'} transition-transform duration-500} />
                     <span>Wake Up Server</span>
                   </div>
                   
