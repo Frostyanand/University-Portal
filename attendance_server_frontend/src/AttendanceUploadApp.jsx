@@ -10,10 +10,10 @@ const AttendanceUploadApp = () => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
-  const [attendanceUploadTimestamp, setAttendanceUploadTimestamp] = useState(null);
   const fileInputRef = useRef(null);
   const uploadAreaRef = useRef(null);
 
+  // Mouse tracking for smooth effects
   // Ping backend status
   const [isBackendReady, setIsBackendReady] = useState(false);
   const [isPinging, setIsPinging] = useState(false);
@@ -126,7 +126,6 @@ const AttendanceUploadApp = () => {
 
       if (response.ok) {
         setUploadStatus('success');
-        setAttendanceUploadTimestamp(new Date().toISOString());
         console.log('Upload successful:', await response.json());
       } else {
         throw new Error('Upload failed');
@@ -144,7 +143,6 @@ const AttendanceUploadApp = () => {
     setUploadProgress(0);
     setUploadStatus('idle');
     setIsUploading(false);
-    setAttendanceUploadTimestamp(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -228,6 +226,7 @@ const AttendanceUploadApp = () => {
           </p>
         </div>
 
+    
         {/* Upload Card */}
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-300 via-purple-300 to-indigo-300 rounded-3xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
@@ -369,11 +368,6 @@ const AttendanceUploadApp = () => {
                       <p className="text-emerald-600 text-lg">
                         Your attendance data is being processed with care
                       </p>
-                      {attendanceUploadTimestamp && (
-                        <p className="text-slate-500 text-sm mt-3">
-                          Uploaded: {new Date(attendanceUploadTimestamp).toLocaleString()}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -439,6 +433,7 @@ const AttendanceUploadApp = () => {
             </div>
           </div>
         </div>
+
 
         {/* Backend Status Card */}
         <div className="mt-16 flex justify-center">
@@ -537,3 +532,4 @@ const AttendanceUploadApp = () => {
 };
 
 export default AttendanceUploadApp;
+
