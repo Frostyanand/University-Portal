@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+    .subject-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .subject-table th, .subject-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    .subject-table th {
+      background-color: #f0f0f0;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Attendance Shortage Notification</h2>
+    <p>Dear {{name}} (Reg No: {{regNo}}),</p>
+
+    <p>This is to inform you that your attendance in the following subjects is below the required threshold.</p>
+
+    <table class="subject-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Attendance (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{{subjectDetails}}}
+      </tbody>
+    </table>
+
+    <p>Your overall attendance is: <strong>{{overallAttendance}}%</strong></p>
+
+    <p>Please make necessary efforts to improve your attendance to avoid academic issues.</p>
+
+    <div class="footer">
+      Regards,<br />
+      Academic Affairs Cell<br />
+      {{institutionName}}
+    </div>
+  </div>
+</body>
+</html>
